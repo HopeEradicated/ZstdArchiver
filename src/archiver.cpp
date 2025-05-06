@@ -26,7 +26,7 @@ void Compressor::compress(const fs::path& input, const fs::path& output) {
         if (bytes_read <= 0) break;
 
         size_t compressed_size = ZSTD_compress(out_buf.data(), out_buf.size(),
-                                               in_buf.data(), bytes_read, 1);
+            in_buf.data(), bytes_read, compressionLevel_);
         if (ZSTD_isError(compressed_size)) {
             throw std::runtime_error("Ошибка сжатия: " + std::string(ZSTD_getErrorName(compressed_size)));
         }
@@ -64,7 +64,7 @@ void Decompressor::decompress(const fs::path& input, const fs::path& output) {
         }
 
         size_t decompressed_size = ZSTD_decompress(out_buf.data(), out_buf.size(),
-                                                   in_buf.data(), compressed_size);
+            in_buf.data(), compressed_size);
         if (ZSTD_isError(decompressed_size)) {
             throw std::runtime_error("Ошибка распаковки: " + std::string(ZSTD_getErrorName(decompressed_size)));
         }
