@@ -21,39 +21,11 @@
 - Компилятор с поддержкой **C++17**  
 - **Git** (для FetchContent)  
 
-<details>
-<summary>Опционально: системный пакет zstd (Linux)</summary>
-
-```bash
-sudo apt update && sudo apt install libzstd-dev
-```
-</details>
-
-<details>
-<summary>Опционально: vcpkg (Windows)</summary>
-
-```powershell
-git clone https://github.com/microsoft/vcpkg.git
-.\vcpkg\bootstrap-vcpkg.bat
-.\vcpkg\vcpkg.exe install zstd
-```
-</details>
-
 ---
 
 ## ⚙ Сборка
 
-### Вариант A: FetchContent (не требует ручной установки zstd)
-
-```bash
-git clone https://github.com/HopeEradicated/ZstdArchiver.git
-cd ZstdArchiver
-mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . --config Release
-```
-
-### Вариант B: Системный пакет zstd (Linux/macOS)
+### Вариант A: Системный пакет zstd (Linux/macOS)
 
 ```bash
 sudo apt install libzstd-dev         # Ubuntu/Debian
@@ -61,19 +33,16 @@ brew install zstd                    # macOS (Homebrew)
 
 git clone https://github.com/HopeEradicated/ZstdArchiver.git
 cd ZstdArchiver
-mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . --config Release
+cmake -DCMAKE_BUILD_TYPE=Release -B build -S .
+cmake --build build --config Release
 ```
 
-### Вариант C: vcpkg (Windows)
+### Вариант B: FetchContent (Windows)
 
 ```powershell
-# Перед этим: .\vcpkg\vcpkg.exe install zstd
 git clone https://github.com/HopeEradicated/ZstdArchiver.git
 cd ZstdArchiver
-mkdir build
-cmake -DCMAKE_TOOLCHAIN_FILE="C:/path.to.vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_BUILD_TYPE=Release -B build
+cmake -DCMAKE_BUILD_TYPE=Release -B build -S .
 cmake --build build --config Release
 ```
 
